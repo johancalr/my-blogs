@@ -1,0 +1,24 @@
+# Configuration file to create Docker containers locally
+# and use them during the development phase
+
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      - MYSQL_DATABASE=proyecto
+      - MYSQL_ROOT_PASSWORD=admin123
+      - MYSQL_PORT=3306
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin123
+      - PMA_HOST=mysql
+    ports:
+      - 3307:80
+    depends_on:
+      - mysql
